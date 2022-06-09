@@ -1,9 +1,12 @@
-import React from "react";
 import { render, screen } from "@testing-library/react";
 import PhoneBookLinesList from "./PhoneBookLinesList";
 
-test("renders learn react link", () => {
+/**
+ * Here is where we could isolate this component and test various functionality. Including dispatches and logic.
+ */
+test("Placeholder test", () => {
   render(<PhoneBookLinesList lines={[]} />);
-  const linkElement = screen.getByText(/learn react/i);
-  expect(linkElement).toBeInTheDocument();
+
+  const addContact = screen.getByText("Add Contact");
+  expect(addContact).toBeInTheDocument();
 });
