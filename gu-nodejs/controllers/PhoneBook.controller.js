@@ -1,21 +1,22 @@
 const PhoneBookLine = require("../models/PhoneBookLine.model.js");
 
+/**
+ * Using our model, we can create 4 functions to respond to API requests. We use the model to communicate to the DB and respond appropriately.
+ */
+
 exports.create = (req, res) => {
-  // Validate request
   if (!req.body) {
     res.status(400).send({
       message: "Content can not be empty!",
     });
   }
 
-  // Create a PhoneBookLine
   const phoneBookLine = new PhoneBookLine({
     firstName: req.body.firstName,
     lastName: req.body.lastName,
     phoneNumber: req.body.phoneNumber,
   });
 
-  // Save PhoneBookLine in the database
   PhoneBookLine.create(phoneBookLine, (err, data) => {
     if (err)
       res.status(500).send({
@@ -27,7 +28,6 @@ exports.create = (req, res) => {
   });
 };
 
-// Retrieve all PhoneBookLines from the database (with condition).
 exports.findAll = (req, res) => {
   PhoneBookLine.getAll((err, data) => {
     if (err)
@@ -39,16 +39,12 @@ exports.findAll = (req, res) => {
   });
 };
 
-// Update a PhoneBookLine identified by the id in the request
 exports.update = (req, res) => {
-  // Validate Request
   if (!req.body) {
     res.status(400).send({
       message: "Content can not be empty!",
     });
   }
-
-  console.log(req.body);
 
   PhoneBookLine.updateById(
     req.params.id,
@@ -69,7 +65,6 @@ exports.update = (req, res) => {
   );
 };
 
-// Delete a PhoneBookLine with the specified id in the request
 exports.delete = (req, res) => {
   PhoneBookLine.remove(req.params.id, (err, data) => {
     if (err) {

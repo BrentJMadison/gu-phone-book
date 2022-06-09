@@ -1,85 +1,37 @@
-import React, { useEffect, useRef, useState } from "react";
-import {
-  Grid,
-  Button,
-  Card,
-  CardContent,
-  TextField,
-  InputAdornment,
-  IconButton,
-} from "@material-ui/core";
-import { createStyles, makeStyles, useTheme } from "@material-ui/styles";
-import ContactPhoneIcon from "@mui/icons-material/ContactPhone";
-import AddIcon from "@mui/icons-material/Add";
-import SearchIcon from "@mui/icons-material/Search";
+import React from "react";
+import { Button, Card, CardContent } from "@material-ui/core";
+
 import LocalPhoneIcon from "@mui/icons-material/LocalPhone";
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
-import { ActionTypes, PhoneBookLine } from "../TYPES";
+import { ActionTypes, PhoneBookLine } from "../../TYPES";
 import { useDispatch } from "react-redux";
-import { deleteLine } from "../ACTIONS/PhoneBook";
+import { deleteLine } from "../../ACTIONS/PhoneBook";
+import { usePhoneBookLinesListStyles } from "./PhoneBookLinesList.styles";
 
-const useStyles = makeStyles((theme) =>
-  createStyles({
-    phoneBookLineContainer: {
-      marginTop: "30px",
-    },
-    phoneBookLine: {
-      display: "flex",
-      flexDirection: "row",
-      justifyContent: "space-between",
-    },
-    phoneBookLeft: {
-      display: "flex",
-      flexDirection: "column",
-    },
-    phoneBookRight: {
-      display: "flex",
-      justifyContent: "center",
-      alignItems: "center",
-    },
-    lineTitle: {
-      display: "flex",
-      flexDirection: "row",
-      alignItems: "center",
-      color: "gray",
-      marginTop: "10px",
-    },
-    phoneLineTitle: {
-      fontWeight: 600,
-      fontSize: "20px",
-      margin: "0",
-    },
-    phoneLinePhoneNumber: {
-      fontSize: "20px",
-      margin: "0",
-    },
-    phoneDeleteButton: {
-      color: "white",
-      minWidth: "unset",
-      height: "40px",
-      backgroundColor: "#A8201A",
-    },
-    phoneEditButton: {
-      color: "white",
-      minWidth: "unset",
-      height: "40px",
-      backgroundColor: "#3f51b5",
-      marginRight: "5px",
-    },
-  })
-);
-
-const PhoneBookLines: React.FC<{
+const PhoneBookLinesList: React.FC<{
   lines: PhoneBookLine[];
 }> = ({ lines }) => {
-  const classes = useStyles();
+  //Component style
+  const classes = usePhoneBookLinesListStyles();
+
+  //Dispatch and actions
   const dispatch = useDispatch<any>();
 
+  /**
+   * DELETE CRUD OPERATION.
+   * Given a PhoneLine object, it will delete in the database and client store
+   * @param line PhoneLine
+   */
   const deletePhoneLine = (line) => {
     dispatch(deleteLine(line.id));
   };
 
+  /**
+   * UPDATE CRUD OPERATION.
+   * Given a PhoneLine object, it will change to the 'in-progress' update view
+   * @param line PhoneLine
+   */
   const updateLine = (line: PhoneBookLine) => {
     dispatch({
       type: ActionTypes.CHANGE_OPERATION,
@@ -133,4 +85,4 @@ const PhoneBookLines: React.FC<{
   );
 };
 
-export default React.memo(PhoneBookLines);
+export default React.memo(PhoneBookLinesList);

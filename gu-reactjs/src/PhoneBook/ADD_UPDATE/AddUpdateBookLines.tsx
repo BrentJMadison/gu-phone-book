@@ -1,43 +1,31 @@
 import React from "react";
-import { Button, Card, CardContent, TextField } from "@material-ui/core";
-import { createStyles, makeStyles, useTheme } from "@material-ui/styles";
-
-import { ActionTypes, PhoneBookLine } from "../TYPES";
 import { useDispatch, useSelector } from "react-redux";
-import { addBookLine, fetchLines, updateLine } from "../ACTIONS/PhoneBook";
-import "react-phone-number-input/style.css";
+import { Button, Card, CardContent, TextField } from "@material-ui/core";
+import MuiPhoneNumber from "material-ui-phone-number";
 
-import PhoneInput from "react-phone-number-input";
-
-const useStyles = makeStyles((theme) =>
-  createStyles({
-    addPhoneBookContainer: {
-      marginTop: "30px",
-    },
-    phoneLineInput: {
-      marginBottom: "20px",
-    },
-
-    phoneBookLine: {
-      display: "flex",
-      flexDirection: "column",
-    },
-  })
-);
+import { ActionTypes, PhoneBookLine } from "../../TYPES";
+import { addBookLine, fetchLines, updateLine } from "../../ACTIONS/PhoneBook";
+import { useAddUpdateBookLinesStyles } from "./AddUpdateBookLines.styles";
 
 const AddPhoneBookLine: React.FC<{}> = ({}) => {
-  const dispatch = useDispatch<any>();
+  //Component style
+  const classes = useAddUpdateBookLinesStyles();
 
+  //Dispatch and actions
+  const dispatch = useDispatch<any>();
   const currentLine = useSelector<any>(
     (state) => state.currentLine
   ) as PhoneBookLine;
   const crudOperation = useSelector<any>((state) => state.crudOperation);
 
-  const classes = useStyles();
-
-  const handleChange = (
+  /**
+   * Handles event from firstName and lastName inputs
+   * @param event
+   * @param field "firstName" | "lastName"
+   */
+  const handleInputChange = (
     event: React.ChangeEvent<HTMLInputElement>,
-    field: any
+    field: "firstName" | "lastName"
   ) => {
     dispatch({
       type: ActionTypes.SET_CURRENT_LINE,
@@ -45,6 +33,10 @@ const AddPhoneBookLine: React.FC<{}> = ({}) => {
     });
   };
 
+  /**
+   * Handles event strictly for phone number
+   * @param value String
+   */
   const handlePhoneNumber = (value) => {
     dispatch({
       type: ActionTypes.SET_CURRENT_LINE,
@@ -52,6 +44,9 @@ const AddPhoneBookLine: React.FC<{}> = ({}) => {
     });
   };
 
+  /**
+   * Function to switch back to main view, cancelling operation.
+   */
   const cancelAdd = () => {
     dispatch({
       type: ActionTypes.CHANGE_OPERATION,
@@ -59,6 +54,11 @@ const AddPhoneBookLine: React.FC<{}> = ({}) => {
     });
   };
 
+  /**
+   * CREATE/UPDATE CRUD OPERATION.
+   * Creates or updates object determined by crudOperation.
+   * Refreshes databases and view on api call.
+   */
   const savePhoneBookLine = () => {
     const { id, firstName, lastName, phoneNumber } = currentLine;
 
@@ -101,7 +101,7 @@ const AddPhoneBookLine: React.FC<{}> = ({}) => {
               className={classes.phoneLineInput}
               label="First Name"
               value={currentLine.firstName}
-              onChange={(e: any) => handleChange(e, "firstName")}
+              onChange={(e: any) => handleInputChange(e, "firstName")}
               variant="outlined"
             />
             <TextField
@@ -109,11 +109,15 @@ const AddPhoneBookLine: React.FC<{}> = ({}) => {
               className={classes.phoneLineInput}
               label="Last Name"
               value={currentLine.lastName}
-              onChange={(e: any) => handleChange(e, "lastName")}
+              onChange={(e: any) => handleInputChange(e, "lastName")}
               variant="outlined"
             />
 
-            <PhoneInput
+            <MuiPhoneNumber
+              defaultCountry={"us"}
+              InputProps={{
+                className: classes.phoneNumberInput,
+              }}
               placeholder="Enter phone number"
               value={currentLine.phoneNumber}
               onChange={handlePhoneNumber}

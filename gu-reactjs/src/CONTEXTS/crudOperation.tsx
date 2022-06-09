@@ -1,4 +1,4 @@
-import { ActionTypes, AppAction, PhoneBookLine } from "../TYPES";
+import { ActionTypes, AppAction } from "../TYPES";
 
 const initialState = "view";
 

@@ -6,10 +6,6 @@ export interface PhoneBookLine {
   phoneNumber: string;
 }
 
-export interface AppState {
-  phoneBookLines: PhoneBookLine[];
-}
-
 export interface AppAction {
   type: string;
   payload: any;

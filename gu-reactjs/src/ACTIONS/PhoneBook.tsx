@@ -1,7 +1,13 @@
 import { ActionTypes } from "../TYPES";
-
 import PhoneService from "../API/PhoneService";
 
+/**
+ * ADD CRUD OPERATION. Add to database and refresh data
+ * @param firstName
+ * @param lastName
+ * @param phoneNumber
+ * @returns
+ */
 export const addBookLine =
   (firstName, lastName, phoneNumber) => async (dispatch) => {
     try {
@@ -25,6 +31,10 @@ export const addBookLine =
     }
   };
 
+/**
+ * VIEW CRUD OPERATION. Fetches data from database and populates store.
+ * @returns
+ */
 export const fetchLines = () => async (dispatch) => {
   try {
     const res = await PhoneService.getAll();
@@ -40,6 +50,12 @@ export const fetchLines = () => async (dispatch) => {
   }
 };
 
+/**
+ * DELETE CRUD OPERATION. Deletes line from database. Assumes delete was okay and removes from client side store. (Could be improved if client found issues)
+ * @param id
+ * @returns
+ */
+
 export const deleteLine = (id) => async (dispatch) => {
   try {
     await PhoneService.delete(id);
@@ -53,6 +69,12 @@ export const deleteLine = (id) => async (dispatch) => {
   }
 };
 
+/**
+ * UPDATE CRUD OPERATION. Updates line by ID in database. Assumes update was okay and does no requery database. (Again could be improved)
+ * @param id
+ * @param data
+ * @returns
+ */
 export const updateLine = (id, data) => async (dispatch) => {
   try {
     const res = await PhoneService.update(id, data);

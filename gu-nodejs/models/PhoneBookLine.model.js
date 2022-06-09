@@ -1,5 +1,10 @@
 const sql = require("./db.js");
 
+/**
+ * Pretty straight forward. Simple model class outlying these 4 properties.
+ * In addition, creating 4 methods for communicating CRUD operations to the database.
+ */
+
 const PhoneBookLine = function (line) {
   this.id = line.id;
   this.firstName = line.firstName;

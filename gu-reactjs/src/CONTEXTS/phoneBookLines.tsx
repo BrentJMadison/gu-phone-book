@@ -1,4 +1,4 @@
-import { ActionTypes, AppAction, PhoneBookLine } from "../TYPES";
+import { ActionTypes, AppAction } from "../TYPES";
 
 const initialState = [
   {
@@ -44,8 +44,6 @@ const phoneBookLines = (phoneBookLines = initialState, action: AppAction) => {
       });
 
     case ActionTypes.DELETE_LINE:
-      console.log(phoneBookLines);
-      console.log(payload);
       return phoneBookLines.filter(({ id }) => id !== payload.id);
 
     default:

@@ -1,5 +1,8 @@
 import api from "./BaseAPI";
 
+/**
+ * Helper class for API methods.
+ */
 class PhoneService {
   getAll() {
     return api.get("");
