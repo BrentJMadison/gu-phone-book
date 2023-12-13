@@ -1,5 +1,6 @@
 # gu-phone-book
 -- Interview take home project --
+
 A simple proof of concept application that supports all CRUD operations. The frontend (React/Redux) communicates with a Node Express backend utilizing MySQL to server/store data.
 
 Testing suite setup to use Jest and potentially another library for backend. Self tested with Postman, although not as 'commercial' of a solution.
