@@ -1,5 +1,5 @@
 # gu-phone-book
--- Interview take home project --
+-- Interview take home project for https://goodunited.io --
 
 A simple proof of concept application that supports all CRUD operations. The frontend (React/Redux) communicates with a Node Express backend utilizing MySQL to server/store data.
 
